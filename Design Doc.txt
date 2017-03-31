@@ -16,12 +16,9 @@ FEATURES
 
 
 TODO
-- relearn git
-- make a simple hello world python script
-- save recipes into a json file
 - randomly generate a meal based on request, remember the tags
-- how to give unpopular recipes a chance to show up
 - how to generate multiple meals
+- how to give unpopular recipes a chance to show up
 - how to redo a certain meal
 - how to output a grocery list
-- make everything nice and intuitive
+- make the main menu flow

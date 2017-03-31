@@ -1,4 +1,6 @@
 #!/usr/bin/python
 
-str = raw_input("Enter your input: ");
-print "Received input is : ", str
+try:
+		file = open("dishes.json", "r")
+	except IOError
+		file = open("dishes.json", "w")

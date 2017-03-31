@@ -1,0 +1,28 @@
+[
+    {
+        "tag": "meat",
+        "name": "meatballs",
+        "ingredients": [
+            "meat",
+            "sauce"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "stirfry",
+        "ingredients": [
+            "veggie",
+            "sauce"
+        ]
+    },
+    {
+        "tag": "meat",
+        "name": "kungpao chicken",
+        "ingredients": [
+            "chicken breast",
+            "peanuts",
+            "spicy sauce",
+            "onions"
+        ]
+    }
+]
