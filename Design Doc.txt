@@ -1,0 +1,27 @@
+Meal Generator
+
+FEATURES
+- save recipes (name, tags and ingredients)
+- generate meal plans 
+	input how many meals you want
+	output 2 dishes per meal
+		1 meat/fish + 1 soup/veggie
+		randomized but low occurance recipes will take higher priority
+	allow a certain meal to be regenerated
+	output a list of grocery list
+- maybe a wild card dish that's just random stuff stirfried
+- maybe a GUI or a site/app
+- customized meal generation
+	specify how many dishes you want per meal and what tags to have
+
+
+TODO
+- relearn git
+- make a simple hello world python script
+- save recipes into a json file
+- randomly generate a meal based on request, remember the tags
+- how to give unpopular recipes a chance to show up
+- how to generate multiple meals
+- how to redo a certain meal
+- how to output a grocery list
+- make everything nice and intuitive
