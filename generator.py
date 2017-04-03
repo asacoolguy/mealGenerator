@@ -1,6 +1,6 @@
 #!/user/bin/python
 import json
-
+import random
 
 dishList = []
 
@@ -38,7 +38,7 @@ def AddDish():
 	name = raw_input("Name of the new dish: ").strip().lower()
 	# get the ingredients of the dish
 	ingredients_input = raw_input("Enter ingreidents used, separated with a comma.\n ---> ")
-	ingredients = [x.strip().lower() for x in ingredients_input.split(',')]
+	ingredients = [x.strip().lower() for x in ingredients_input.split(',') if not x.isspace()]
 	# get the tag of the dish
 	while True:
 		tag = raw_input("Is this a 'veggie', 'meat', or 'soup' dish? \n ---> ").strip().lower()
@@ -54,7 +54,7 @@ def AddDish():
 	while True:
 		confirm = raw_input("Is this info correct? ").strip().lower()
 		if confirm == "y" or confirm == "yes":
-			print "Alrightie."
+			print "Alrightie. Dish saved"
 			dishList.append(newDish)
 			break
 
@@ -64,11 +64,22 @@ def AddDish():
 		else:
 			print "Invalid input: '" + tag + "'"
 
-
+# displays all dishes
 def DisplayDishes():
-	print "Here is a list of all saved dishes:"
+	if len(dishList) > 0:
+		print "Here is a list of all saved dishes:"
+		for d in dishList:
+			print str(dishList.index(d)+1) + ". " + d.name + "  (" + d.tag + ")"
+	else:
+		print "No dishes saved."
+
+# displays the given dish
+def DisplayDish(name):
 	for d in dishList:
-		print str(dishList.index(d)+1) + ". " + d.name
+		if d.name == name:
+			print d
+			return
+	print "Dish '" + name + "' not found. Returning to main menu"
 
 
 def RemoveDish():
@@ -80,6 +91,40 @@ def RemoveDish():
 			return
 	print "Dish '" + name + "' not found. Returning to main menu"
 
+
+# generates a given number of meals (default 1). Each meal has 1 meat + 1 veggie/soup. 
+def GenerateMeals():
+	num = raw_input("How many meals to generate?--->")
+
+	if not num.isdigit() or int(num) < 1:
+		print "Invalid number. Returning to main menu"
+		return
+
+	num = int(num)
+
+	print "Generating Meal Plans for " + str(num) + " meals(s)..."
+
+	# split the list into meat, veggie, and soup sublists.
+	meatDishes = [d for d in dishList if d.tag == "meat"]
+	veggieDishes = [d for d in dishList if d.tag == "veggie"]
+	soupDishes = [d for d in dishList if d.tag == "soup"]
+	generated = [] #a list of generated touples
+	
+	# for every meal, randomly remove 1 item from each list to be part of the meal.
+	for n in range(num):
+		# make sure there is enough meals left
+		if len(meatDishes) < 1 or len(veggieDishes) < 1:
+			print "Ran out of meals to use."
+			break
+
+		dishes = (random.choice(meatDishes), random.choice(veggieDishes))
+		meatDishes.remove(dishes[0])
+		veggieDishes.remove(dishes[1])
+		generated.append(dishes)
+		print "Meal #" + str(n+1)
+		print "----->meat: " + dishes[0].name + ", veggie: " + dishes[1].name
+
+	print str(n) + " meals generated.\n\n"
 
 # load the dishes from the file
 def LoadDishes():
@@ -102,7 +147,6 @@ def SaveDishes():
 	with open("dishes.json", "w+") as file:
 		json.dump([d.__dict__ for d in dishList], file, indent=4, separators=(',', ': ') ) 
 		# 
-	print "Dishes saved."
 
 
 # main method
@@ -115,18 +159,25 @@ LoadDishes()
 keepGoing = True
 while (keepGoing):
 	# print the main menu 
+	print "*******************************************"
 	command = raw_input("Enter 'add' or 'remove' to modify dishes." + \
-		" Enter 'list' to list currently saved dishes." + \
+		" Enter 'show' to show all currently saved dishes." + \
+		" Enter 'show [name]' to show a specific dish." + \
 		" Enter 'generate' to generate meals.\n--->").strip().lower()
 
 	if command == 'add':
 		AddDish()
 		SaveDishes()
-	elif command == 'list':
-		DisplayDishes()
+	elif command[0:4] == 'show':
+		if len(command) == 4:
+			DisplayDishes()
+		else:
+			DisplayDish(command[5:])
 	elif command == 'remove':
 		RemoveDish()
 		SaveDishes()
+	elif command == 'generate':
+		GenerateMeals()
 	else:
 		print "Invalid input. Please try again. \n"
 	

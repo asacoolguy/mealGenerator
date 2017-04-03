@@ -1,18 +1,11 @@
 [
     {
         "tag": "meat",
-        "name": "meatballs",
+        "name": "mapo tofu",
         "ingredients": [
-            "meat",
-            "sauce"
-        ]
-    },
-    {
-        "tag": "veggie",
-        "name": "stirfry",
-        "ingredients": [
-            "veggie",
-            "sauce"
+            "tofu",
+            "minced meat",
+            "spring onions"
         ]
     },
     {
@@ -20,9 +13,118 @@
         "name": "kungpao chicken",
         "ingredients": [
             "chicken breast",
-            "peanuts",
-            "spicy sauce",
-            "onions"
+            "spring onions",
+            "garlic",
+            "ginger",
+            "peanuts"
+        ]
+    },
+    {
+        "tag": "meat",
+        "name": "double coocked pork",
+        "ingredients": [
+            "pork belly",
+            "cabbage",
+            "ginger",
+            "garlic"
+        ]
+    },
+    {
+        "tag": "meat",
+        "name": "daikon meat",
+        "ingredients": [
+            "daikon",
+            "pork/chicken",
+            "spring onions"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "mushrooms bakchoi",
+        "ingredients": [
+            "mushrooms",
+            "bakchoi"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "steamed broccoli",
+        "ingredients": [
+            "broccoli"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "beansprout stirfry jakoten",
+        "ingredients": [
+            "beansprouts",
+            "jakoten/chikuwa",
+            "bamboo/gobou\u001b[d\u001b[d\u001b[d\u001b[d\u001b[d\u001b[d shoots/gobou"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "beansprout stirfry chives",
+        "ingredients": [
+            "beansprouts",
+            "chives",
+            "pork"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "crabstick veggies",
+        "ingredients": [
+            "crabstick",
+            "komatsu veggie"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "napa chicken",
+        "ingredients": [
+            "napa cabbage",
+            "chicken",
+            "mushrooms",
+            "ginger",
+            "garlic"
+        ]
+    },
+    {
+        "tag": "meat",
+        "name": "teriyaki salmon",
+        "ingredients": [
+            "salmon"
+        ]
+    },
+    {
+        "tag": "meat",
+        "name": "spicy fish",
+        "ingredients": [
+            "fish of any kind",
+            "ginger",
+            "spring onions"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "string bean stirfry",
+        "ingredients": [
+            "string beans",
+            "minced meat (optional)",
+            "pickled veggie",
+            "garlic"
+        ]
+    },
+    {
+        "tag": "veggie",
+        "name": "stirfry yams",
+        "ingredients": [
+            "yams",
+            "chicken/pork (optional)",
+            "spring onions",
+            "ginger",
+            "pickled veggie"
         ]
     }
 ]
