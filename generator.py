@@ -8,12 +8,14 @@ dishList = []
 class Dish(object):
 		def __init__(self, name, ingredients, tag):
 			self.name = name
-			self.ingredients = ingredients #list of strings
-			self.tag = tag #list of strings
+			self.ingredients = ingredients # list of strings
+			self.tag = tag # single string
+			self.freq = 1 # how many times has this dish showed up? default is 1
 
 		def __str__(self):
 			return "name: " + self.name + '\n' + "ingredients: " + \
-				', '.join(self.ingredients) + '\n' + "tags: " + self.tag
+				', '.join(self.ingredients) + '\n' + "tag: " + self.tag + \
+				'\nfrequency: ' + str(self.freq)
 
 
 # recursive decoder to turn read JSON unicode into python data
@@ -66,10 +68,13 @@ def AddDish():
 
 # displays all dishes
 def DisplayDishes():
+	# sort the dishList by name first
+	dishList.sort(key = lambda d: d.name)
+
 	if len(dishList) > 0:
 		print "Here is a list of all saved dishes:"
 		for d in dishList:
-			print str(dishList.index(d)+1) + ". " + d.name + "  (" + d.tag + ")"
+			print str(dishList.index(d)+1) + ". " + d.name + "  (" + d.tag[0:1] + ")"
 	else:
 		print "No dishes saved."
 
@@ -99,16 +104,15 @@ def GenerateMeals():
 	if not num.isdigit() or int(num) < 1:
 		print "Invalid number. Returning to main menu"
 		return
-
 	num = int(num)
-
-	print "Generating Meal Plans for " + str(num) + " meals(s)..."
 
 	# split the list into meat, veggie, and soup sublists.
 	meatDishes = [d for d in dishList if d.tag == "meat"]
 	veggieDishes = [d for d in dishList if d.tag == "veggie"]
 	soupDishes = [d for d in dishList if d.tag == "soup"]
-	generated = [] #a list of generated touples
+	generated = []
+
+	print "Generating Meal Plans for " + str(num) + " meals(s)..."
 	
 	# for every meal, randomly remove 1 item from each list to be part of the meal.
 	for n in range(num):
@@ -117,14 +121,114 @@ def GenerateMeals():
 			print "Ran out of meals to use."
 			break
 
-		dishes = (random.choice(meatDishes), random.choice(veggieDishes))
-		meatDishes.remove(dishes[0])
-		veggieDishes.remove(dishes[1])
-		generated.append(dishes)
-		print "Meal #" + str(n+1)
-		print "----->meat: " + dishes[0].name + ", veggie: " + dishes[1].name
+		newMeal = (PickRandomDish(meatDishes), PickRandomDish(veggieDishes))
+		meatDishes.remove(newMeal[0])
+		veggieDishes.remove(newMeal[1])
+		generated.append(newMeal)
 
-	print str(n) + " meals generated.\n\n"
+	PrintGeneratedDishes(generated)
+	# ask if any should be regenerated
+	repeat = True
+	while repeat:
+		confirm = raw_input("Is this meal plan good? Enter 'yes' to confirm. " + \
+			"Enter 'redo [number]' regenerate a certain meal. " + \
+			"Enter 'no' to cancel and return to the main menu.\n--->").strip().lower()
+		if confirm == "y" or confirm == "yes":
+			print "Alrightie. Producing a grocery list.\n\n"
+			# update freq number
+			for m, v in generated:
+				m.freq += 1
+				v.freq += 1
+			SaveDishes()
+			# print and save grocery list
+			PrintGroceryList(generated)
+			print "Grocery list saved. Returning to main menu."
+			repeat = False
+		elif confirm[0:4] == "redo" and confirm[5:].isdigit():
+			mealNum = int(confirm[5:])
+			if mealNum < 1 or mealNum > len(generated):
+				print str(mealNum) + " is out of range!"
+			else:
+				#regenerate a certain meal
+				RegenerateMeal(meatDishes, veggieDishes, generated, mealNum)
+				PrintGeneratedDishes(generated)
+		elif confirm == "n" or confirm == "no":
+			print "Canceled. Returning to main menu."
+			repeat = False
+		else:
+			print "Invalid input: '" + confirm + "'"
+
+# given a list of leftover meats and veggies, the generated list and a number
+# regenerates a certain meal by modifying the generated list in place
+def RegenerateMeal(meatDishes, veggieDishes, generated, mealNum):
+	print "Regenerating meal #" + str(mealNum)
+	num = mealNum - 1 # adjust the index
+
+	meatDishes.append(generated[num][0])
+	veggieDishes.append(generated[num][1])
+
+	newMeal = (PickRandomDish(meatDishes), PickRandomDish(veggieDishes))
+	meatDishes.remove(newMeal[0])
+	veggieDishes.remove(newMeal[1])
+
+	generated.pop(num)
+	generated.insert(num, newMeal)
+
+
+# given a list of meat+veggie tuples, prints it out
+def PrintGeneratedDishes(generated):
+	for n in range(len(generated)):
+		print "Meal #" + str(n+1)
+		print "----->meat: " + generated[n][0].name + ", veggie: " + generated[n][1].name
+
+	print str(n+1) + " meals generated.\n"
+
+
+# outputs a list of ingredients
+def PrintGroceryList(generated):
+	ingredients = []
+	i = 1
+	for m, v in generated:
+		ingredients.append("Meal " + str(i) + " meat: " + m.name)
+		ingredients += [("\t" + d) for d in m.ingredients if not (d in ingredients)]
+		ingredients.append("Meal " + str(i) + " veggie: " + v.name)
+		ingredients += [("\t" + d) for d in v.ingredients if not (d in ingredients)]
+		i += 1
+	
+	with open("grocery list.txt", "w+") as file:
+		for i in ingredients:
+			print i
+			file.write(i + "\n")
+
+
+# given a list of dishes, returns a dish at random
+# balances the probability so less frequent dishes get higher chance of showing up
+def PickRandomDish(dishes):
+	# if there's only 1 dish left, just return the 1
+	if len(dishes) == 1:
+		return dishes[0]
+
+	# find the sum of all freqs
+	sum = 0
+	for d in dishes:
+		sum += d.freq
+
+	# make a list of tuples of the dish plus its probability value
+	# probability is inversely related to how frequently the dish shows up
+	probList = [(d, sum - d.freq) for d in dishes]
+
+	# calculate the sum based on probability
+	newSum = 0
+	for (d, p) in probList:
+		newSum += p
+
+	# randomly pick from probList based on the probability
+	r = random.randint(1,newSum)
+	for (d, p) in probList:
+		r = r - p
+		if r <= 0:
+			return d
+
 
 # load the dishes from the file
 def LoadDishes():
@@ -146,7 +250,6 @@ def LoadDishes():
 def SaveDishes():
 	with open("dishes.json", "w+") as file:
 		json.dump([d.__dict__ for d in dishList], file, indent=4, separators=(',', ': ') ) 
-		# 
 
 
 # main method
@@ -159,7 +262,7 @@ LoadDishes()
 keepGoing = True
 while (keepGoing):
 	# print the main menu 
-	print "*******************************************"
+	print "\n********************MAIN MENU********************"
 	command = raw_input("Enter 'add' or 'remove' to modify dishes." + \
 		" Enter 'show' to show all currently saved dishes." + \
 		" Enter 'show [name]' to show a specific dish." + \

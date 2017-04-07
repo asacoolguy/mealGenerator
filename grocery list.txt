@@ -1,0 +1,25 @@
+Meal 1 meat: daikon meat
+	daikon
+	pork/chicken
+	spring onions
+Meal 1 veggie: stirfry yams
+	yams
+	chicken/pork (optional)
+	spring onions
+	ginger
+	pickled veggie
+Meal 2 meat: spicy fish
+	fish of any kind
+	ginger
+	spring onions
+Meal 2 veggie: beansprout stirfry chives
+	beansprouts
+	chives
+	pork
+Meal 3 meat: mapo tofu
+	tofu
+	minced meat
+	spring onions
+Meal 3 veggie: mushrooms bakchoi
+	mushrooms
+	bakchoi

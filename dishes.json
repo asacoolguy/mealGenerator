@@ -1,5 +1,6 @@
 [
     {
+        "freq": 2,
         "tag": "meat",
         "name": "mapo tofu",
         "ingredients": [
@@ -9,6 +10,7 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "meat",
         "name": "kungpao chicken",
         "ingredients": [
@@ -20,8 +22,9 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "meat",
-        "name": "double coocked pork",
+        "name": "double cooked pork",
         "ingredients": [
             "pork belly",
             "cabbage",
@@ -30,6 +33,7 @@
         ]
     },
     {
+        "freq": 2,
         "tag": "meat",
         "name": "daikon meat",
         "ingredients": [
@@ -39,6 +43,7 @@
         ]
     },
     {
+        "freq": 2,
         "tag": "veggie",
         "name": "mushrooms bakchoi",
         "ingredients": [
@@ -47,6 +52,7 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "veggie",
         "name": "steamed broccoli",
         "ingredients": [
@@ -54,15 +60,17 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "veggie",
         "name": "beansprout stirfry jakoten",
         "ingredients": [
             "beansprouts",
             "jakoten/chikuwa",
-            "bamboo/gobou\u001b[d\u001b[d\u001b[d\u001b[d\u001b[d\u001b[d shoots/gobou"
+            "bamboo shoots/gobou"
         ]
     },
     {
+        "freq": 2,
         "tag": "veggie",
         "name": "beansprout stirfry chives",
         "ingredients": [
@@ -72,6 +80,7 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "veggie",
         "name": "crabstick veggies",
         "ingredients": [
@@ -80,6 +89,7 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "veggie",
         "name": "napa chicken",
         "ingredients": [
@@ -91,6 +101,7 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "meat",
         "name": "teriyaki salmon",
         "ingredients": [
@@ -98,6 +109,7 @@
         ]
     },
     {
+        "freq": 2,
         "tag": "meat",
         "name": "spicy fish",
         "ingredients": [
@@ -107,6 +119,7 @@
         ]
     },
     {
+        "freq": 1,
         "tag": "veggie",
         "name": "string bean stirfry",
         "ingredients": [
@@ -117,6 +130,7 @@
         ]
     },
     {
+        "freq": 2,
         "tag": "veggie",
         "name": "stirfry yams",
         "ingredients": [

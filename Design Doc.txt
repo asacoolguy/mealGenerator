@@ -9,14 +9,10 @@ FEATURES
 		randomized but low occurance recipes will take higher priority
 	allow a certain meal to be regenerated
 	output a list of grocery list
-- maybe a wild card dish that's just random stuff stirfried
+- maybe a wild card dish that's just random stuff stirfried?
 - maybe a GUI or a site/app
 - customized meal generation
 	specify how many dishes you want per meal and what tags to have
 
 
-TODO
-- how to make less frequent dishes appear more frequently
-- how to redo a certain meal
-- how to output a grocery list
-- make the main menu flow
+	
